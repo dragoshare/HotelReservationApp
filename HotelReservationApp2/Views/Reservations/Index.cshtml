@@ -1,0 +1,38 @@
+﻿@model IEnumerable<HotelReservationApp2.Models.Reservation>
+
+@{
+    ViewData["Title"] = "Lista rezerwacji";
+}
+
+<h1>Lista rezerwacji</h1>
+
+<a class="btn btn-primary" asp-action="Create">Dodaj nową rezerwację</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Imię i nazwisko</th>
+            <th>Email</th>
+            <th>Data zameldowania</th>
+            <th>Data wymeldowania</th>
+            <th>Pokój</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reservation in Model)
+        {
+            <tr>
+                <td>@reservation.FullName</td>
+                <td>@reservation.Email</td>
+                <td>@reservation.CheckInDate.ToShortDateString()</td>
+                <td>@reservation.CheckOutDate.ToShortDateString()</td>
+                <td>@reservation.Room.RoomNumber</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@reservation.Id">Edytuj</a> |
+                    <a asp-action="Delete" asp-route-id="@reservation.Id">Usuń</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
