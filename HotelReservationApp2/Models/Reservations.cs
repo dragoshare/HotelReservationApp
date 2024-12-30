@@ -23,5 +23,7 @@ namespace HotelReservationApp2.Models
         public DateTime CheckOutDate { get; set; }
 
         public Room? Room { get; set; }
+
+        public int NumberOfGuests { get; set; }
     }
 }

@@ -17,6 +17,10 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Reservations" asp-action="Index">Rezerwacje</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="ReservationForm" asp-action="Create">Rezerwuj pobyt</a>
+                    </li>
+
                 </ul>
                 <ul class="navbar-nav">
                     @if (User.Identity.IsAuthenticated)

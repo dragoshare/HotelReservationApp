@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using HotelReservationApp2.Models;
 using HotelReservationApp2.Data;
+using HotelReservationApp2.Models;
 
 namespace HotelReservationApp2.Controllers
 {
@@ -22,14 +22,14 @@ namespace HotelReservationApp2.Controllers
         // GET: Reservations
         public async Task<IActionResult> Index()
         {
-            var hotelContext = _context.Reservations.Include(r => r.Room);
-            return View(await hotelContext.ToListAsync());
+            var applicationDbContext = _context.Reservations.Include(r => r.Room);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Reservations/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Reservations == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -48,7 +48,7 @@ namespace HotelReservationApp2.Controllers
         // GET: Reservations/Create
         public IActionResult Create()
         {
-            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Id");
+            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Description");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace HotelReservationApp2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,RoomId,FullName,Email,CheckInDate,CheckOutDate")] Reservation reservation)
+        public async Task<IActionResult> Create([Bind("Id,RoomId,FullName,Email,CheckInDate,CheckOutDate,NumberOfGuests")] Reservation reservation)
         {
             if (ModelState.IsValid)
             {
@@ -65,14 +65,14 @@ namespace HotelReservationApp2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Description", reservation.RoomId);
             return View(reservation);
         }
-
 
         // GET: Reservations/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Reservations == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -82,7 +82,7 @@ namespace HotelReservationApp2.Controllers
             {
                 return NotFound();
             }
-            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Id", reservation.RoomId);
+            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Description", reservation.RoomId);
             return View(reservation);
         }
 
@@ -91,7 +91,7 @@ namespace HotelReservationApp2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,RoomId,FullName,Email,CheckInDate,CheckOutDate")] Reservation reservation)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,RoomId,FullName,Email,CheckInDate,CheckOutDate,NumberOfGuests")] Reservation reservation)
         {
             if (id != reservation.Id)
             {
@@ -118,14 +118,14 @@ namespace HotelReservationApp2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Id", reservation.RoomId);
+            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Description", reservation.RoomId);
             return View(reservation);
         }
 
         // GET: Reservations/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Reservations == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -146,10 +146,6 @@ namespace HotelReservationApp2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Reservations == null)
-            {
-                return Problem("Entity set 'HotelContext.Reservations'  is null.");
-            }
             var reservation = await _context.Reservations.FindAsync(id);
             if (reservation != null)
             {
@@ -162,7 +158,7 @@ namespace HotelReservationApp2.Controllers
 
         private bool ReservationExists(int id)
         {
-            return (_context.Reservations?.Any(e => e.Id == id)).GetValueOrDefault();
+            return _context.Reservations.Any(e => e.Id == id);
         }
     }
 }

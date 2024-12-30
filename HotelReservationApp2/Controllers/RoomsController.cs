@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using HotelReservationApp2.Models;
-
 using HotelReservationApp2.Data;
+using HotelReservationApp2.Models;
 
 namespace HotelReservationApp2.Controllers
 {
@@ -22,15 +22,13 @@ namespace HotelReservationApp2.Controllers
         // GET: Rooms
         public async Task<IActionResult> Index()
         {
-            return _context.Rooms != null ?
-                        View(await _context.Rooms.ToListAsync()) :
-                        Problem("Entity set 'HotelContext.Rooms'  is null.");
+            return View(await _context.Rooms.ToListAsync());
         }
 
         // GET: Rooms/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Rooms == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -56,7 +54,7 @@ namespace HotelReservationApp2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,RoomNumber,Description,Price")] Room room)
+        public async Task<IActionResult> Create([Bind("Id,RoomNumber,Description,Price,Capacity")] Room room)
         {
             if (ModelState.IsValid)
             {
@@ -70,7 +68,7 @@ namespace HotelReservationApp2.Controllers
         // GET: Rooms/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Rooms == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -88,7 +86,7 @@ namespace HotelReservationApp2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,RoomNumber,Description,Price")] Room room)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,RoomNumber,Description,Price,Capacity")] Room room)
         {
             if (id != room.Id)
             {
@@ -121,7 +119,7 @@ namespace HotelReservationApp2.Controllers
         // GET: Rooms/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Rooms == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -141,10 +139,6 @@ namespace HotelReservationApp2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Rooms == null)
-            {
-                return Problem("Entity set 'HotelContext.Rooms'  is null.");
-            }
             var room = await _context.Rooms.FindAsync(id);
             if (room != null)
             {
@@ -157,7 +151,7 @@ namespace HotelReservationApp2.Controllers
 
         private bool RoomExists(int id)
         {
-            return (_context.Rooms?.Any(e => e.Id == id)).GetValueOrDefault();
+            return _context.Rooms.Any(e => e.Id == id);
         }
     }
 }

@@ -11,6 +11,12 @@ namespace HotelReservationApp2.Data
         {
         }
 
+        public bool IsRoomAvailable(int roomId, DateTime checkInDate, DateTime checkOutDate)
+        {
+            return !Reservations.Any(r => r.RoomId == roomId &&
+                                          ((r.CheckInDate <= checkOutDate && r.CheckOutDate >= checkInDate)));
+        }
+
         // Tabele aplikacyjne
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Reservation> Reservations { get; set; }

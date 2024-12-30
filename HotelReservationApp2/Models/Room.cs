@@ -14,5 +14,8 @@ namespace HotelReservationApp2.Models
 
         [Range(0, 100000)]
         public decimal Price { get; set; }
+
+        [Range(0, 100000)]
+        public int Capacity { get; set; }
     }
 }

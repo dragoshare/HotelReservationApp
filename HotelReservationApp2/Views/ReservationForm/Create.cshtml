@@ -1,0 +1,71 @@
+﻿@model HotelReservationApp2.Models.Reservation
+
+<h2>Create Reservation</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="RoomId">Room</label>
+        <select id="RoomId" name="roomId" class="form-control" onchange="updateRoomCapacity()">
+            @foreach (var room in ViewBag.Rooms as IEnumerable<HotelReservationApp2.Models.Room>)
+            {
+                <option value="@room.Id" data-capacity="@room.Capacity">
+                    @room.RoomNumber - @room.Description (@room.Capacity guests)
+                </option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="NumberOfGuests">Number of Guests</label>
+        <input id="NumberOfGuests" name="numberOfGuests" class="form-control" type="number" min="1" />
+        <small id="CapacityInfo" class="form-text text-muted">Select a room to see its capacity.</small>
+    </div>
+
+    <div class="form-group">
+        <label for="FullName">Full Name</label>
+        <input id="FullName" name="fullName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input id="Email" name="email" class="form-control" type="email" />
+    </div>
+
+    <div class="form-group">
+        <label for="CheckInDate">Check-in Date</label>
+        <input id="CheckInDate" name="checkInDate" class="form-control" type="date" />
+    </div>
+
+    <div class="form-group">
+        <label for="CheckOutDate">Check-out Date</label>
+        <input id="CheckOutDate" name="checkOutDate" class="form-control" type="date" />
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Create Reservation</button>
+    </div>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="text-danger">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <p>@error.ErrorMessage</p>
+            }
+        </div>
+    }
+</form>
+
+<script>
+    function updateRoomCapacity() {
+        const roomSelect = document.getElementById('RoomId');
+        const selectedOption = roomSelect.options[roomSelect.selectedIndex];
+        const capacity = selectedOption.getAttribute('data-capacity');
+        document.getElementById('CapacityInfo').textContent = `The selected room can accommodate up to ${capacity} guests.`;
+        document.getElementById('NumberOfGuests').max = capacity;
+    }
+
+    // Initialize capacity info on page load
+    window.onload = updateRoomCapacity;
+</script>
+
