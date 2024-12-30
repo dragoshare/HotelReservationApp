@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using HotelReservationApp2.Data;
 using HotelReservationApp2.Models;
 
-namespace HotelReservationApp2.Controllers 
+namespace HotelReservationApp2.Controllers  
 {
     public class RoomsController : Controller
     {
