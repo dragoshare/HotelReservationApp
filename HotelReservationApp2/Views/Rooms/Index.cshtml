@@ -1,53 +1,30 @@
 ﻿@model IEnumerable<HotelReservationApp2.Models.Room>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lista pokoi";
 }
 
-<h1>Index</h1>
+<div class="container py-5">
+    <h1 class="text-center mb-4">Lista pokoi</h1>
+    <a asp-action="Create" class="btn btn-primary mb-4">Dodaj nowy pokój</a>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.RoomNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Capacity)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Capacity)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="row">
+        @foreach (var room in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Zdjęcie pokoju">
+                    <div class="card-body">
+                        <h5 class="card-title">Numer pokoju: @room.RoomNumber</h5>
+                        <p class="card-text">@room.Description</p>
+                        <p class="text-muted">Cena: @room.Price.ToString("C") za noc</p>
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Edit" asp-route-id="@room.Id" class="btn btn-warning btn-sm">Edytuj</a>
+                            <a asp-action="Delete" asp-route-id="@room.Id" class="btn btn-danger btn-sm">Usuń</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

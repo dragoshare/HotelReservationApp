@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,8 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using HotelReservationApp2.Data;
 using HotelReservationApp2.Models;
 
-namespace HotelReservationApp2.Controllers  
+namespace HotelReservationApp2.Controllers
 {
+    [Authorize]
     public class RoomsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -19,13 +22,13 @@ namespace HotelReservationApp2.Controllers
             _context = context;
         }
 
-        // GET: Rooms
+  
         public async Task<IActionResult> Index()
         {
             return View(await _context.Rooms.ToListAsync());
         }
 
-        // GET: Rooms/Details/5
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,15 +46,13 @@ namespace HotelReservationApp2.Controllers
             return View(room);
         }
 
-        // GET: Rooms/Create
+   
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Rooms/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,RoomNumber,Description,Price,Capacity")] Room room)

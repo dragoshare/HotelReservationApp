@@ -1,11 +1,46 @@
 ﻿@{
     ViewData["Title"] = "Strona główna";
 }
-<div class="text-center">
-    <h1>Witaj w systemie rezerwacji hoteli!</h1>
-    <p>Zaloguj się lub zarejestruj, aby móc przeglądać i rezerwować pokoje.</p>
-    <p>
-        <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Login">Zaloguj się</a>
-        <a class="btn btn-secondary" asp-area="Identity" asp-page="/Account/Register">Zarejestruj</a>
-    </p>
+
+<!-- Sekcja powitalna (hero) -->
+<div class="hero bg-image text-white text-center d-flex align-items-center justify-content-center" style="background-image: url('/images/hero-bg.jpg'); min-height: 400px;">
+    <div>
+        <h1 class="display-4 fw-bold">Zarezerwuj swój wymarzony pobyt</h1>
+        <p class="lead mt-3">Odkryj komfortowe pokoje i zarezerwuj pobyt w kilka kliknięć.</p>
+        <!-- Przycisk prowadzący do rezerwacji -->
+        <a asp-controller="ReservationForm" asp-action="Create" class="btn btn-primary btn-lg mt-4">Zarezerwuj teraz</a>
+    </div>
+</div>
+
+<!-- Sekcja korzyści -->
+<div class="benefits py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="mb-5">Dlaczego warto rezerwować u nas?</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <i class="bi bi-house-door-fill display-3 text-primary mb-3"></i>
+                <h4>Komfortowe pokoje</h4>
+                <p>Wszystkie nasze pokoje są w pełni wyposażone i gotowe na Twój pobyt.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="bi bi-wallet2 display-3 text-primary mb-3"></i>
+                <h4>Przystępne ceny</h4>
+                <p>Oferujemy najlepsze ceny i elastyczne opcje płatności.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="bi bi-calendar-check-fill display-3 text-primary mb-3"></i>
+                <h4>Szybka rezerwacja</h4>
+                <p>Dokonaj rezerwacji w zaledwie kilka minut dzięki intuicyjnemu systemowi.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sekcja CTA (Call to Action) -->
+<div class="cta-section text-center py-5 bg-primary text-white">
+    <div class="container">
+        <h2>Zarezerwuj swój pobyt już teraz!</h2>
+        <p class="lead">Kliknij poniższy przycisk i dokonaj rezerwacji w zaledwie kilka minut.</p>
+        <a asp-controller="ReservationForm" asp-action="Create" class="btn btn-light btn-lg">Zarezerwuj teraz</a>
+    </div>
 </div>
