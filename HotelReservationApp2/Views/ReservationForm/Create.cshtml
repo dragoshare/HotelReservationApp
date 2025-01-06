@@ -1,60 +1,70 @@
 ﻿@model HotelReservationApp2.Models.Reservation
 
-<h2>Create Reservation</h2>
+@{
+    ViewData["Title"] = "Create Reservation";
+}
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label for="RoomId">Room</label>
-        <select id="RoomId" name="roomId" class="form-control" onchange="updateRoomCapacity()">
-            @foreach (var room in ViewBag.Rooms as IEnumerable<HotelReservationApp2.Models.Room>)
-            {
-                <option value="@room.Id" data-capacity="@room.Capacity">
-                    @room.RoomNumber - @room.Description (@room.Capacity guests)
-                </option>
-            }
-        </select>
-    </div>
+<div class="container py-5">
+    <h1 class="text-center mb-4" style="color: #0d6efd;">Create Reservation</h1>
 
-    <div class="form-group">
-        <label for="NumberOfGuests">Number of Guests</label>
-        <input id="NumberOfGuests" name="numberOfGuests" class="form-control" type="number" min="1" />
-        <small id="CapacityInfo" class="form-text text-muted">Select a room to see its capacity.</small>
-    </div>
+    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+        <div class="card-body">
+            <form asp-action="Create" method="post">
+                <div class="form-group mb-3">
+                    <label for="RoomId" class="form-label fw-bold">Room</label>
+                    <select id="RoomId" name="roomId" class="form-select" onchange="updateRoomCapacity()" style="border-color: #0d6efd;">
+                        @foreach (var room in ViewBag.Rooms as IEnumerable<HotelReservationApp2.Models.Room>)
+                        {
+                            <option value="@room.Id" data-capacity="@room.Capacity">
+                                @room.RoomNumber - @room.Description (@room.Capacity guests)
+                            </option>
+                        }
+                    </select>
+                </div>
 
-    <div class="form-group">
-        <label for="FullName">Full Name</label>
-        <input id="FullName" name="fullName" class="form-control" />
-    </div>
+                <div class="form-group mb-3">
+                    <label for="NumberOfGuests" class="form-label fw-bold">Number of Guests</label>
+                    <input id="NumberOfGuests" name="numberOfGuests" class="form-control" type="number" min="1" style="border-color: #0d6efd;" />
+                    <small id="CapacityInfo" class="form-text text-muted">Select a room to see its capacity.</small>
+                </div>
 
-    <div class="form-group">
-        <label for="Email">Email</label>
-        <input id="Email" name="email" class="form-control" type="email" />
-    </div>
+                <div class="form-group mb-3">
+                    <label for="FullName" class="form-label fw-bold">Full Name</label>
+                    <input id="FullName" name="fullName" class="form-control" style="border-color: #0d6efd;" />
+                </div>
 
-    <div class="form-group">
-        <label for="CheckInDate">Check-in Date</label>
-        <input id="CheckInDate" name="checkInDate" class="form-control" type="date" />
-    </div>
+                <div class="form-group mb-3">
+                    <label for="Email" class="form-label fw-bold">Email</label>
+                    <input id="Email" name="email" class="form-control" type="email" style="border-color: #0d6efd;" />
+                </div>
 
-    <div class="form-group">
-        <label for="CheckOutDate">Check-out Date</label>
-        <input id="CheckOutDate" name="checkOutDate" class="form-control" type="date" />
-    </div>
+                <div class="form-group mb-3">
+                    <label for="CheckInDate" class="form-label fw-bold">Check-in Date</label>
+                    <input id="CheckInDate" name="checkInDate" class="form-control" type="date" style="border-color: #0d6efd;" />
+                </div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Create Reservation</button>
-    </div>
+                <div class="form-group mb-3">
+                    <label for="CheckOutDate" class="form-label fw-bold">Check-out Date</label>
+                    <input id="CheckOutDate" name="checkOutDate" class="form-control" type="date" style="border-color: #0d6efd;" />
+                </div>
 
-    @if (!ViewData.ModelState.IsValid)
-    {
-        <div class="text-danger">
-            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-            {
-                <p>@error.ErrorMessage</p>
-            }
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary" style="background-color: #0d6efd; border-color: #0d6efd;">Create Reservation</button>
+                </div>
+
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="text-danger mt-3">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <p>@error.ErrorMessage</p>
+                        }
+                    </div>
+                }
+            </form>
         </div>
-    }
-</form>
+    </div>
+</div>
 
 <script>
     function updateRoomCapacity() {
@@ -68,4 +78,3 @@
     // Initialize capacity info on page load
     window.onload = updateRoomCapacity;
 </script>
-
