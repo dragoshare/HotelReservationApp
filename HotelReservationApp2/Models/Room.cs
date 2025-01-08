@@ -17,5 +17,7 @@ namespace HotelReservationApp2.Models
 
         [Range(0, 100000)]
         public int Capacity { get; set; }
+
+        public string ImageUrl { get; set; }
     }
 }

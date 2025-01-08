@@ -24,6 +24,11 @@
             <input asp-for="Price" class="form-control" />
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
+        <div class="mb-3">
+            <label for="ImageUrl" class="form-label">Link do zdjęcia (URL)</label>
+            <input asp-for="ImageUrl" class="form-control" placeholder="https://adres-zdjecia.com/zdjecie.jpg" />
+            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+        </div>
         <button type="submit" class="btn btn-success">Zapisz</button>
         <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
     </form>
