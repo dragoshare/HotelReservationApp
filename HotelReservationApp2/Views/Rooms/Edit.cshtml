@@ -1,52 +1,42 @@
 ﻿@model HotelReservationApp2.Models.Room
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edytuj pokój";
 }
 
-<h1>Edit</h1>
-
-<h4>Room</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="RoomNumber" class="control-label"></label>
-                <input asp-for="RoomNumber" class="form-control" />
-                <span asp-validation-for="RoomNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Capacity" class="control-label"></label>
-                <input asp-for="Capacity" class="form-control" />
-                <span asp-validation-for="Capacity" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label for="ImageUrl" class="form-label">Link do zdjęcia (URL)</label>
-                <input asp-for="ImageUrl" class="form-control" placeholder="https://adres-zdjecia.com/zdjecie.jpg" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="container py-5">
+    <h1 class="text-center mb-4 text-primary">Edytuj pokój</h1>
+    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+        <div class="card-body">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group mb-3">
+                    <label for="RoomNumber" class="form-label fw-bold">Numer pokoju</label>
+                    <input asp-for="RoomNumber" class="form-control" style="border-color: #0d6efd;" required />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="Description" class="form-label fw-bold">Opis pokoju</label>
+                    <textarea asp-for="Description" class="form-control" rows="3" style="border-color: #0d6efd;" required></textarea>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="Price" class="form-label fw-bold">Cena za noc</label>
+                    <input asp-for="Price" class="form-control" type="number" step="0.01" min="0" style="border-color: #0d6efd;" required />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="Capacity" class="form-label fw-bold">Pojemność (liczba osób)</label>
+                    <input asp-for="Capacity" class="form-control" type="number" min="1" style="border-color: #0d6efd;" required />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="ImageUrl" class="form-label fw-bold">URL zdjęcia pokoju</label>
+                    <input asp-for="ImageUrl" class="form-control" type="url" placeholder="Wklej link do zdjęcia" style="border-color: #0d6efd;" />
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-success">Zapisz zmiany</button>
+                    <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

@@ -1,57 +1,42 @@
 ﻿@model HotelReservationApp2.Models.Reservation
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edytuj rezerwację";
 }
 
-<h1>Edit</h1>
-
-<h4>Reservation</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="RoomId" class="control-label"></label>
-                <select asp-for="RoomId" class="form-control" asp-items="ViewBag.RoomId"></select>
-                <span asp-validation-for="RoomId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FullName" class="control-label"></label>
-                <input asp-for="FullName" class="form-control" />
-                <span asp-validation-for="FullName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CheckInDate" class="control-label"></label>
-                <input asp-for="CheckInDate" class="form-control" />
-                <span asp-validation-for="CheckInDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CheckOutDate" class="control-label"></label>
-                <input asp-for="CheckOutDate" class="form-control" />
-                <span asp-validation-for="CheckOutDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumberOfGuests" class="control-label"></label>
-                <input asp-for="NumberOfGuests" class="form-control" />
-                <span asp-validation-for="NumberOfGuests" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="container py-5">
+    <h1 class="text-center mb-4 text-primary">Edytuj rezerwację</h1>
+    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+        <div class="card-body">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group mb-3">
+                    <label for="FullName" class="form-label fw-bold">Imię i nazwisko</label>
+                    <input asp-for="FullName" class="form-control" style="border-color: #0d6efd;" required />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="Email" class="form-label fw-bold">Email</label>
+                    <input asp-for="Email" class="form-control" type="email" style="border-color: #0d6efd;" required />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="NumberOfGuests" class="form-label fw-bold">Liczba gości</label>
+                    <input asp-for="NumberOfGuests" class="form-control" type="number" min="1" style="border-color: #0d6efd;" required />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="CheckInDate" class="form-label fw-bold">Data zameldowania</label>
+                    <input asp-for="CheckInDate" class="form-control" type="date" style="border-color: #0d6efd;" required />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="CheckOutDate" class="form-label fw-bold">Data wymeldowania</label>
+                    <input asp-for="CheckOutDate" class="form-control" type="date" style="border-color: #0d6efd;" required />
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-success">Zapisz zmiany</button>
+                    <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
