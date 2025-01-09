@@ -4,6 +4,17 @@
     ViewData["Title"] = "Create Reservation";
 }
 
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
+
+
 <div class="container py-5">
     <h1 class="text-center mb-4" style="color: #0d6efd;">★★★★★ Hotel ★★★★★</h1> <br/>
 
@@ -65,6 +76,15 @@
 </div>
 
 <script>
+    document.querySelector('form').addEventListener('submit', function (event) {
+        const checkInDate = new Date(document.getElementById('CheckInDate').value);
+        const checkOutDate = new Date(document.getElementById('CheckOutDate').value);
+
+        if (checkOutDate <= checkInDate) {
+            event.preventDefault(); // Zatrzymuje wysyłanie formularza
+            alert('Data wymeldowania musi być późniejsza niż data zameldowania.');
+        }
+    });
     function selectRoom(card) {
         // Remove selection from previously selected room
         const previouslySelected = document.querySelector('.room-card.selected');

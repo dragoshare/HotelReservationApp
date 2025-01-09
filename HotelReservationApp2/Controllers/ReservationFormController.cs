@@ -8,6 +8,12 @@ namespace HotelReservationApp2.Controllers
     {
         private readonly ApplicationDbContext _context;
 
+        public IActionResult Success()
+        {
+            return View();
+        }
+
+
         public ReservationFormController(ApplicationDbContext context)
         {
             _context = context;
@@ -24,18 +30,23 @@ namespace HotelReservationApp2.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(int roomId, string fullName, string email, DateTime checkInDate, DateTime checkOutDate, int numberOfGuests)
         {
+            if (checkOutDate <= checkInDate)
+            {
+                ModelState.AddModelError("", "Data wymeldowania musi być późniejsza niż data zameldowania.");
+            }
+
             var room = _context.Rooms.Find(roomId);
             if (room == null)
             {
-                ModelState.AddModelError("", "Selected room does not exist.");
+                ModelState.AddModelError("", "Wybrany pokój nie istnieje.");
             }
             else if (numberOfGuests > room.Capacity)
             {
-                ModelState.AddModelError("", $"The selected room can accommodate up to {room.Capacity} guests.");
+                ModelState.AddModelError("", $"Wybrany pokój może pomieścić maksymalnie {room.Capacity} osób.");
             }
             else if (!_context.IsRoomAvailable(roomId, checkInDate, checkOutDate))
             {
-                ModelState.AddModelError("", "The selected room is not available for the chosen dates.");
+                ModelState.AddModelError("", "Wybrany pokój nie jest dostępny w podanym terminie.");
             }
 
             if (ModelState.IsValid)
@@ -47,18 +58,20 @@ namespace HotelReservationApp2.Controllers
                     Email = email,
                     CheckInDate = checkInDate,
                     CheckOutDate = checkOutDate,
-                    NumberOfGuests = numberOfGuests // Zakładamy, że Reservation ma to pole
+                    NumberOfGuests = numberOfGuests
                 };
 
                 _context.Reservations.Add(reservation);
                 _context.SaveChanges();
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Success", new { id = reservation.Id });
             }
 
             ViewBag.Rooms = _context.Rooms.ToList();
             return View();
         }
+
+
 
     }
 }

@@ -2,15 +2,26 @@
     ViewData["Title"] = "Strona główna";
 }
 
-<!-- Sekcja powitalna (hero) -->
-<div class="hero bg-image text-white text-center d-flex align-items-center justify-content-center" style="background-image: url('https://budowskaz.pl/wp-content/uploads/2018/10/Hotel_02.jpg'); min-height: 420px;">
+
+<div class="hero bg-image text-white text-center d-flex align-items-center justify-content-center"
+     style="
+         background-image: url('https://www.fourseasons.com/alt/img-opt/~65.1701/publish/content/dam/fourseasons/images/web/CBL/CBL_075_aspect16x9.jpg');
+         background-size: cover;
+         background-position: center;
+         background-repeat: no-repeat;
+         min-height: 480px;">
     <div>
-        <h1 class="display-4 fw-bold">Zarezerwuj swój wymarzony pobyt</h1>
-        <p class="lead mt-3">Odkryj komfortowe pokoje i zarezerwuj pobyt w kilka kliknięć.</p>
+        <h1 class="display-4 fw-bold" style="text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);">Zarezerwuj swój wymarzony pobyt</h1>
+        <p class="lead mt-3" style="text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);">Odkryj komfortowe pokoje i zarezerwuj pobyt w kilka kliknięć.</p>
         <!-- Przycisk prowadzący do rezerwacji -->
         <a asp-controller="ReservationForm" asp-action="Create" class="btn btn-primary btn-lg mt-4">Zarezerwuj teraz</a>
     </div>
 </div>
+
+
+
+
+
 
 <!-- Sekcja korzyści -->
 <div class="benefits py-5 bg-light">
