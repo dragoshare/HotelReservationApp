@@ -15,6 +15,7 @@
                 <th>Email</th>
                 <th>Data zameldowania</th>
                 <th>Data wymeldowania</th>
+                <th>Liczba gości</th>
                 <th>Pokój</th>
                 <th>Akcje</th>
             </tr>
@@ -27,6 +28,7 @@
                     <td>@reservation.Email</td>
                     <td>@reservation.CheckInDate.ToShortDateString()</td>
                     <td>@reservation.CheckOutDate.ToShortDateString()</td>
+                    <td>@reservation.NumberOfGuests</td>
                     <td>@reservation.Room.RoomNumber</td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@reservation.Id" class="btn btn-warning btn-sm">Edytuj</a>

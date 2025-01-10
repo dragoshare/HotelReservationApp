@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Home\AfterReservation.cshtml" />
     <Content Remove="Views\Index.cshtml" />
     <Content Remove="Views\Reservations.cshtml" />
     <Content Remove="Views\Rooms.cshtml" />
